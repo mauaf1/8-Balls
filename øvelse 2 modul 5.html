@@ -8,25 +8,36 @@
 
 
 <script>
-   
+/* 
 function cd(artistName, albumName, trackTimeInSeconds) {
 this.artistName = artistName;
 this.albumName = albumName;
 this.trackTimeInSeconds = trackTimeInSeconds;
 this.getCd = function() {
-return this.artistName + " | " + this.albumName + " | " + this. trackTimeInSeconds; <br/>
+return this.artistName + " | " + this.albumName + " | " + this. trackTimeInSeconds; 
 };
+}  */
+
+
+fetchContent("albums.json").then((albums) => {
+    console.log(albums);
+   })
+
+let albumObjects = [];
+
+console.log("Object Data:"+ albumObjects);
+
+for (let i = 0; i<albums.length; i++){
+    let album = new Album(albums[i].artistName, albums[i].albumName, albums[i].trackTimeInSeconds);
+    albumObjects.push(album);
 }
 
-fetch('albums.json', {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json',
-    },
-})
-   .then(response => response.json())
-   .then(response => console.log(JSON.stringify(response)))
-
+//Magi - det taler vi om senere!!
+async function fetchContent(url) {
+  let request = await fetch(url);
+  let json = await request.json();
+  return json;
+  }
 </script>
 </body>
 </html>
