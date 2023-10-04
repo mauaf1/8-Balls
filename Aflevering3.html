@@ -22,9 +22,9 @@ fetch('albums.json')
         <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
         <strong>Productionyear:</strong> ${album.productionYear} <br>
         <strong>Genre:</strong> ${album.genre} <br>
-        <strong>Tracknumber, Tracktitle and Track time in seconds:</strong> <br>
+        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
         <ul>
-          ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} sekunder</li>`).join('')}
+          ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
         </ul>
       `;
       albumListe.appendChild(listItem);
