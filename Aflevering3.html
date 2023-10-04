@@ -11,10 +11,10 @@
 <script>
 fetch('albums.json')
   .then(response => response.json())
-  .then(data => {
+  .then(music => {
     const albumListe = document.getElementById('album-liste');
 
-    data.forEach(album => {
+    music.forEach(album => {
       const listItem = document.createElement('li');
       listItem.innerHTML = `
         <strong>Albumname:</strong> ${album.albumName} <br>
