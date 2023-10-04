@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"> <head>
 <meta charset="utf-8">
-<title>D3 Page Template</title>
+<title>Aflevering 3 8 Balls</title>
 <script type="text/javascript" src="d3.js"></script>
         </head>
         <body>
 <script type="text/javascript">
 // Your beautiful D3 code will go here
+fetchContent("/albums.json").then((albums) => {});
+
+
+
+async function fetchContent(url) {
+  let request = await fetch(url);
+  let json = await request.json();
+  return json;
+}
             </script>
         </body>
 </html>
