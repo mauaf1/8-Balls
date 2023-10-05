@@ -15,12 +15,11 @@
             <a href="#" onclick="myFunction('Pop')">Pop</a>
         </div>
     </div>
+    <ul id="album-liste"></ul>
     
-        <ul id="album-liste"></ul>
     
     <script>
-    
-    function toggleDropdown() {
+ function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -53,6 +52,12 @@ function myFunction(genre) {
             });
         });
 }
+
+// Load albums with 'All' genre when the page loads
+window.onload = function() {
+    myFunction('All');
+};
+
     </script>
     
     </body>
