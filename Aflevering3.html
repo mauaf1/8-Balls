@@ -9,12 +9,13 @@
       <div class="dropdown">
         <button onclick="toggleDropdown()" class="dropbtn">Genres</button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="#" onclick="myFunction('All')">All</a>
-            <a href="#" onclick="myFunction('Rock')">Rock</a>
-            <a href="#" onclick="myFunction('Funk')">Funk</a>
-            <a href="#" onclick="myFunction('Pop')">Pop</a>
+            <a href="#all" onclick="myFunction('All')">All</a>
+            <a href="#rock" onclick="myFunction('Rock')">Rock</a>
+            <a href="#funk" onclick="myFunction('Funk')">Funk</a>
+            <a href="#pop" onclick="myFunction('Pop')">Pop</a>
         </div>
     </div>
+    
     <ul id="album-liste"></ul>
     
     
@@ -25,35 +26,33 @@
 
 function myFunction(genre) {
     toggleDropdown();
-
-    // Fetch albums from JSON file and filter based on selected genre
     fetch('albums.json')
         .then(response => response.json())
         .then(music => {
             const albumListe = document.getElementById('album-liste');
-            albumListe.innerHTML = ''; // Clear the previous album list
-
-            music.forEach(album => {
-                if (genre === 'All' || album.genre === genre) {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `
-                        <strong>Albumname:</strong> ${album.albumName} <br>
-                        <strong>ArtistName:</strong> ${album.artistName} <br>
-                        <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
-                        <strong>Productionyear:</strong> ${album.productionYear} <br>
-                        <strong>Genre:</strong> ${album.genre} <br>
-                        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
-                        <ul>
-                            ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
-                        </ul>
-                    `;
-                    albumListe.appendChild(listItem);
-                }
-            });
-        });
+            albumListe.innerHTML = ''; 
+    
+    music.forEach(album => {
+      if (genre === 'All' || album.genre === genre) {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <strong>Albumname:</strong> ${album.albumName} <br>
+        <strong>ArtistName:</strong> ${album.artistName} <br>
+        <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
+        <strong>Productionyear:</strong> ${album.productionYear} <br>
+        <strong>Genre:</strong> ${album.genre} <br>
+        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
+          <ul>
+          ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
+          </ul> `;
+                   
+          albumListe.appendChild(listItem);
+               
+        }
+     });
+  });
 }
 
-// Load albums with 'All' genre when the page loads
 window.onload = function() {
     myFunction('All');
 };
