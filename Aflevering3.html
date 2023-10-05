@@ -5,36 +5,61 @@
     <title>Aflevering 3 8 Balls</title>
     <link href="aflevering3.css" type="text/css" rel="stylesheet" />
     </head>
-
-<body>
-
-    <ul id="album-liste"></ul>
-<script>
-fetch('albums.json')
-  .then(response => response.json())
-  .then(music => {
-    const albumListe = document.getElementById('album-liste');
-
-    music.forEach(album => {
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        <strong>Albumname:</strong> ${album.albumName} <br>
-        <strong>ArtistName:</strong> ${album.artistName} <br>
-        <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
-        <strong>Productionyear:</strong> ${album.productionYear} <br>
-        <strong>Genre:</strong> ${album.genre} <br>
-        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
-        <ul>
-          ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
-        </ul>
-      `;
-      albumListe.appendChild(listItem);
-    });
-  })
-
-
-</script>
-
-</body>
-
-</html>
+    <body>
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="#Rock">Rock</a>
+              <a href="#Funk">Funk</a>
+              <a href="#Pop">Pop</a>
+            </div>
+          </div>
+        <ul id="album-liste"></ul>
+    
+    <script>
+    
+    fetch('albums.json')
+      .then(response => response.json())
+      .then(music => {
+        const albumListe = document.getElementById('album-liste');
+    
+        music.forEach(album => {
+          const listItem = document.createElement('li');
+          listItem.innerHTML = `
+            <strong>Albumname:</strong> ${album.albumName} <br>
+            <strong>ArtistName:</strong> ${album.artistName} <br>
+            <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
+            <strong>Productionyear:</strong> ${album.productionYear} <br>
+            <strong>Genre:</strong> ${album.genre} <br>
+            <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
+            <ul>
+              ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
+            </ul>
+          `;
+          albumListe.appendChild(listItem);
+        });
+      })
+    
+      function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+    
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    
+    </script>
+    
+    </body>
+    
+    </html>
+    
