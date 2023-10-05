@@ -20,7 +20,6 @@ left: 90px;
   }
   
   .dropdown {
-    float: left;
     position: relative;
     display: inline-block;
   }
