@@ -6,82 +6,53 @@
     <link href="aflevering3.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
-        <div class="dropdown">
-          <button onclick="myFunction('All')" class="dropbtn">Genres</button>
-          <div id="myDropdown" class="dropdown-content">
-         <a href="#all" onclick="myFunction('All')">All</a>
-        <a href="#Rock" onclick="myFunction('Rock')">Rock</a>
-        <a href="#Funk" onclick="myFunction('Funk')">Funk</a>
-        <a href="#Pop" onclick="myFunction('Pop')">Pop</a>
-            </div>
-          </div>
+      <div class="dropdown">
+        <button onclick="toggleDropdown()" class="dropbtn">Genres</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a href="#" onclick="myFunction('All')">All</a>
+            <a href="#" onclick="myFunction('Rock')">Rock</a>
+            <a href="#" onclick="myFunction('Funk')">Funk</a>
+            <a href="#" onclick="myFunction('Pop')">Pop</a>
+        </div>
+    </div>
+    
         <ul id="album-liste"></ul>
     
     <script>
     
-    fetch('albums.json')
-      .then(response => response.json())
-      .then(music => {
-        const albumListe = document.getElementById('album-liste');
-    
-        music.forEach(album => {
-          const listItem = document.createElement('li');
-          listItem.innerHTML = `
-            <strong>Albumname:</strong> ${album.albumName} <br>
-            <strong>ArtistName:</strong> ${album.artistName} <br>
-            <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
-            <strong>Productionyear:</strong> ${album.productionYear} <br>
-            <strong>Genre:</strong> ${album.genre} <br>
-            <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
-            <ul>
-              ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
-            </ul>
-          `;
-          albumListe.appendChild(listItem);
-        });
-      })
-    
-      function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-    }
-    
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-    
-    function myFunction(genre) {
+    function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
-
-    const albumListe = document.getElementById('album-liste');
-    const albums = Array.from(albumListe.children);
-
-    if (genre === 'All') {
-        albums.forEach(album => {
-            album.style.display = 'block';
-        });
-    } else {
-        albums.forEach(album => {
-            const genreElement = album.querySelector('strong:nth-of-type(5)'); // Antag, at genreoplysning er den femte stærke tag i hvert album-element
-            if (genreElement.innerText !== genre) {
-                album.style.display = 'none';
-            } else {
-                album.style.display = 'block';
-            }
-        });
-    }
 }
 
+function myFunction(genre) {
+    toggleDropdown();
 
+    // Fetch albums from JSON file and filter based on selected genre
+    fetch('albums.json')
+        .then(response => response.json())
+        .then(music => {
+            const albumListe = document.getElementById('album-liste');
+            albumListe.innerHTML = ''; // Clear the previous album list
 
+            music.forEach(album => {
+                if (genre === 'All' || album.genre === genre) {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <strong>Albumname:</strong> ${album.albumName} <br>
+                        <strong>ArtistName:</strong> ${album.artistName} <br>
+                        <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
+                        <strong>Productionyear:</strong> ${album.productionYear} <br>
+                        <strong>Genre:</strong> ${album.genre} <br>
+                        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
+                        <ul>
+                            ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
+                        </ul>
+                    `;
+                    albumListe.appendChild(listItem);
+                }
+            });
+        });
+}
     </script>
     
     </body>
