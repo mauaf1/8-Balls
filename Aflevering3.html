@@ -7,11 +7,12 @@
     </head>
     <body>
         <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Genres</button>
-            <div id="myDropdown" class="dropdown-content">
-              <a href="#Rock">Rock</a>
-              <a href="#Funk">Funk</a>
-              <a href="#Pop">Pop</a>
+          <button onclick="myFunction('All')" class="dropbtn">Genres</button>
+          <div id="myDropdown" class="dropdown-content">
+         <a href="#all" onclick="myFunction('All')">All</a>
+        <a href="#Rock" onclick="myFunction('Rock')">Rock</a>
+        <a href="#Funk" onclick="myFunction('Funk')">Funk</a>
+        <a href="#Pop" onclick="myFunction('Pop')">Pop</a>
             </div>
           </div>
         <ul id="album-liste"></ul>
@@ -57,6 +58,30 @@
       }
     }
     
+    function myFunction(genre) {
+    document.getElementById("myDropdown").classList.toggle("show");
+
+    // Filtrer albums baseret på den valgte genre
+    const albumListe = document.getElementById('album-liste');
+    const albums = Array.from(albumListe.children);
+
+    if (genre === 'All') {
+        albums.forEach(album => {
+            album.style.display = 'block';
+        });
+    } else {
+        albums.forEach(album => {
+            const genreElement = album.querySelector('strong:nth-of-type(5)'); // Antag, at genreoplysning er den femte stærke tag i hvert album-element
+            if (genreElement.innerText !== genre) {
+                album.style.display = 'none';
+            } else {
+                album.style.display = 'block';
+            }
+        });
+    }
+}
+
+
 
     </script>
     
