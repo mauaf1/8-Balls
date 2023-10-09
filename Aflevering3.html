@@ -6,9 +6,9 @@
     <link href="aflevering3.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
+
       <div class="dropdown">
         <button onclick="toggleDropdown()" class="dropbtn">Genres</button>
-        <button onclick="toggleTracklist()" class="dropbtn">Vis/Skjul Trackliste</button>
         <div id="myDropdown" class="dropdown-content">
             <a href="#all" onclick="myFunction('All')">All</a>
             <a href="#rock" onclick="myFunction('Rock')">Rock</a>
@@ -17,13 +17,24 @@
         </div>
     </div>
     
+    <button onclick="toggleTracklist()" class="dropbtn">Vis/Skjul Trackliste</button>
+
     <ul id="album-liste"></ul>
     
     
     <script>
+
  function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
+
+function toggleTracklist() {
+            const tracklists = document.querySelectorAll('.tracklist');
+
+            tracklists.forEach(tracklist => {
+                tracklist.classList.toggle('hidden');
+            });
+        }
 
 function myFunction(genre) {
     toggleDropdown();
