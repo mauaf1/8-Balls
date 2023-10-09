@@ -54,7 +54,7 @@ function myFunction(genre) {
         <strong>Productionyear:</strong> ${album.productionYear} <br>
         <strong>Genre:</strong> ${album.genre} <br>
         <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
-          <ul>
+          <ul id="trackliste">
           ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
           </ul> `;
                    
