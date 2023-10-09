@@ -29,13 +29,16 @@
 }
 
 function toggleTracklist() {
-            const tracklists = document.querySelectorAll('.tracklist');
+    const tracklists = document.querySelectorAll('.tracklist');
 
-            tracklists.forEach(tracklist => {
-                tracklist.classList.toggle('hidden');
-            });
+    tracklists.forEach(tracklist => {
+        if (tracklist.style.display === 'none' || tracklist.style.display === '') {
+            tracklist.style.display = 'block';
+        } else {
+            tracklist.style.display = 'none';
         }
-
+    });
+}
 function myFunction(genre) {
     toggleDropdown();
     fetch('albums.json')
@@ -53,11 +56,11 @@ function myFunction(genre) {
         <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
         <strong>Productionyear:</strong> ${album.productionYear} <br>
         <strong>Genre:</strong> ${album.genre} <br>
-        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
-          <ul>
+        <strong class="tracklist">Tracknumber, Tracktitle and Tracktime:</strong> <br>
+          <ul class="tracklist">
           ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
           </ul> `;
-                   
+               
           albumListe.appendChild(listItem);
                
         }
