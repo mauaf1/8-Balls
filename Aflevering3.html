@@ -56,8 +56,8 @@ function myFunction(genre) {
         <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
         <strong>Productionyear:</strong> ${album.productionYear} <br>
         <strong>Genre:</strong> ${album.genre} <br>
-        <strong class="tracklist">Tracknumber, Tracktitle and Tracktime:</strong> <br>
-          <ul class="tracklist">
+        <strong>Tracknumber, Tracktitle and Tracktime:</strong> <br>
+          <ul>
           ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
           </ul> `;
                
