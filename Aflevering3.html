@@ -1,80 +1,82 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <meta charset="utf-8">
-    <title>Aflevering 3 8 Balls</title>
-    <link href="aflevering3.css" type="text/css" rel="stylesheet" />
-    </head>
-    <body>
+<head>
+  <meta charset="utf-8">
+  <title>Aflevering 3 8 Balls</title>
+  <link href="aflevering3.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
 
-      <div class="dropdown">
-        <button onclick="toggleDropdown()" class="dropbtn">Genres</button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="#all" onclick="myFunction('All')">All</a>
-            <a href="#rock" onclick="myFunction('Rock')">Rock</a>
-            <a href="#funk" onclick="myFunction('Funk')">Funk</a>
-            <a href="#pop" onclick="myFunction('Pop')">Pop</a>
-        </div>
-    </div>
-    
-    <button onclick="toggleTracklist()" class="dropbtn">Vis/Skjul Trackliste</button>
+<div class="dropdown">
+  <button onclick="toggleDropdown()" class="dropbtn">Genres</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#all" onclick="myFunction('All')">All</a>
+    <a href="#rock" onclick="myFunction('Rock')">Rock</a>
+    <a href="#funk" onclick="myFunction('Funk')">Funk</a>
+    <a href="#pop" onclick="myFunction('Pop')">Pop</a>
+  </div>
+</div>
 
-    <ul id="album-liste"></ul>
-    
-    
-    <script>
+<button onclick="toggleTracklist()" class="dropbtn">Vis/Skjul Trackliste</button>
 
- function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
+<ul id="album-liste"></ul>
 
-function toggleTracklist() {
-    const tracklists = document.querySelectorAll('.tracklist');
+<script>
+  function toggleDropdown() {
+    var dropdown = document.getElementById("myDropdown");
+    if (dropdown.classList.contains("show")) {
+      dropdown.classList.remove("show");
+    } else {
+      dropdown.classList.add("show");
+    }
+  }
 
-    tracklists.forEach(tracklist => {
-        if (tracklist.style.display === 'none' || tracklist.style.display === '') {
-            tracklist.style.display = 'block';
-        } else {
-            tracklist.style.display = 'none';
-        }
+  function toggleTracklist() {
+    var tracklists = document.querySelectorAll('.tracklist');
+
+    tracklists.forEach(function(tracklist) {
+      if (tracklist.style.display === 'none' || tracklist.style.display === '') {
+        tracklist.style.display = 'block';
+      } else {
+        tracklist.style.display = 'none';
+      }
     });
-}
-function myFunction(genre) {
+  }
+
+  function myFunction(genre) {
     toggleDropdown();
     fetch('albums.json')
-        .then(response => response.json())
-        .then(music => {
-            const albumListe = document.getElementById('album-liste');
-            albumListe.innerHTML = ''; 
-    
-    music.forEach(album => {
-      if (genre === 'All' || album.genre === genre) {
-      const listItem = document.createElement('li');
-      listItem.innerHTML = `
-        <strong>Albumname:</strong> ${album.albumName} <br>
-        <strong>ArtistName:</strong> ${album.artistName} <br>
-        <a href="${album.artistWebsite}" target="_blank">Artist website</a> <br>
-        <strong>Productionyear:</strong> ${album.productionYear} <br>
-        <strong>Genre:</strong> ${album.genre} <br>
-        <strong class="tracklist">Tracknumber, Tracktitle and Tracktime:</strong> <br>
-          <ul class="tracklist">
-          ${album.trackList.map(track => `<li>${track.trackNumber}. ${track.trackTitle} - ${track.trackTimeInSeconds} Seconds</li>`).join('')}
-          </ul> `;
-               
-          albumListe.appendChild(listItem);
-               
-        }
-     });
-  });
-}
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(music) {
+        var albumListe = document.getElementById('album-liste');
+        albumListe.innerHTML = '';
 
-window.onload = function() {
+        music.forEach(function(album) {
+          if (genre === 'All' || album.genre === genre) {
+            var listItem = document.createElement('li');
+            listItem.innerHTML = 
+            '<strong>Albumname:</strong> ' + album.albumName + '<br>' +
+              '<strong>ArtistName:</strong> ' + album.artistName + '<br>' +
+              '<a href="' + album.artistWebsite + '" target="_blank">Artist website</a><br>' +
+              '<strong>Productionyear:</strong> ' + album.productionYear + '<br>' +
+              '<strong class="tracklist">Tracknumber, Tracktitle and Tracktime:</strong><br>' +
+              '<ul class="tracklist">' +
+              album.trackList.map(function(track) {
+                return '<li>' + track.trackNumber + '. ' + track.trackTitle + ' - ' + track.trackTimeInSeconds + ' Seconds</li>';
+              }).join('') +
+              '</ul>';
+            albumListe.appendChild(listItem);
+          }
+        });
+      });
+  }
+
+  window.onload = function() {
     myFunction('All');
-};
+  };
+</script>
 
-    </script>
-    
-    </body>
-    
-    </html>
-    
+</body>
+</html>
