@@ -8,7 +8,7 @@
 <body>
 
 <div class="dropdown">
-  <button onclick="toggleDropdown()" class="dropbtn">Genres</button>
+  <button onclick="Dropdown()" class="dropbtn">Genres</button>
   <div id="myDropdown" class="dropdown-content">
     <a href="#all" onclick="myFunction('All')">All</a>
     <a href="#rock" onclick="myFunction('Rock')">Rock</a>
@@ -17,12 +17,12 @@
   </div>
 </div>
 
-<button onclick="toggleTracklist()" class="dropbtn">Vis/Skjul Trackliste</button>
+<button onclick="Tracklist()" class="dropbtn">Vis/Skjul Trackliste</button>
 
 <ul id="album-liste"></ul>
 
 <script>
-  function toggleDropdown() {
+  function Dropdown() {
     var dropdown = document.getElementById("myDropdown");
     if (dropdown.classList.contains("show")) {
       dropdown.classList.remove("show");
@@ -31,7 +31,7 @@
     }
   }
 
-  function toggleTracklist() {
+  function Tracklist() {
     var tracklists = document.querySelectorAll('.tracklist');
 
     tracklists.forEach(function(tracklist) {
@@ -44,7 +44,7 @@
   }
 
   function myFunction(genre) {
-    toggleDropdown();
+    Dropdown();
     fetch('albums.json')
       .then(function(response) {
         return response.json();
